@@ -1,0 +1,36 @@
+version: 2
+
+project_name: img2ssh
+
+builds:
+  - id: windows
+    main: .
+    binary: img2ssh
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - formats: [tar.gz, zip]
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: checksums.txt
+
+release:
+  footer: |
+    ## Install
+
+    ```sh
+    curl -fsSL https://raw.githubusercontent.com/bulletsrip/img2ssh/main/install.sh | sh
+    ```
+
+    Windows PowerShell:
+
+    ```powershell
+    irm https://raw.githubusercontent.com/bulletsrip/img2ssh/main/install.ps1 | iex
+    ```
